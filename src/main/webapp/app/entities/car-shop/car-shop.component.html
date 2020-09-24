@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="home.shop.title">Productos</span>
 
-        <button *ngIf="carDetail.length > 0" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-detalle-venta" [routerLink]="['/car/detail']">
+        <button *ngIf="carDetail.length > 0" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-detalle-venta" (click)="goToCarDetail()" [routerLink]="['/car/detail']">
             <fa-icon icon="shopping-cart"></fa-icon>
             <span  jhiTranslate="home.shop.seeCar"  [translateValues]="{ totalItems: carDetail.length }"></span>
         </button>

@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { IProducto } from 'app/shared/model/producto.model';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { ProductoService } from 'app/entities/producto/producto.service';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { DetalleVenta, IDetalleVenta } from 'app/shared/model/detalle-venta.model';
+import { DetalleVentaService } from 'app/entities/detalle-venta/detalle-venta.service';
+import { IVenta, Venta } from 'app/shared/model/venta.model';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { VentaService } from 'app/entities/venta/venta.service';
 
 @Component({
   selector: 'jhi-car-shop',
@@ -14,6 +19,7 @@ import { DetalleVenta, IDetalleVenta } from 'app/shared/model/detalle-venta.mode
 export class CarShopComponent implements OnInit {
   products?: IProducto[];
 
+  venta?: IVenta;
   carDetail: IDetalleVenta[] = [];
 
   eventSubscriber?: Subscription;
@@ -24,7 +30,15 @@ export class CarShopComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
-  constructor(protected productoService: ProductoService, protected activatedRoute: ActivatedRoute, protected router: Router) {
+  isSaving = false;
+
+  constructor(
+    protected productoService: ProductoService,
+    protected ventaService: VentaService,
+    protected detalleVentaService: DetalleVentaService,
+    protected activatedRoute: ActivatedRoute,
+    protected router: Router
+  ) {
     const strCar = localStorage.getItem('car');
     this.carDetail = strCar !== null ? JSON.parse(strCar) : [];
   }
@@ -100,7 +114,44 @@ export class CarShopComponent implements OnInit {
     };
 
     this.carDetail?.push(detail);
+  }
 
-    localStorage.setItem('car', JSON.stringify(this.carDetail));
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IDetalleVenta>>): void {
+    result.subscribe(
+      data => this.onSaveSuccess(data),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(response: HttpResponse<IDetalleVenta>): void {
+    response.body;
+    this.isSaving = false;
+  }
+
+  protected onSaveError(): void {
+    this.isSaving = false;
+  }
+
+  goToCarDetail(): void {
+    this.venta = {
+      ...new Venta(),
+      clienteId: 1,
+      fecha: moment(moment.now(), DATE_TIME_FORMAT),
+    };
+
+    this.ventaService.create(this.venta).subscribe(
+      response => {
+        this.venta = response.body!;
+      },
+      () => {},
+      () => {
+        for (const item of this.carDetail) {
+          item.ventaId = this.venta?.id!;
+          this.subscribeToSaveResponse(this.detalleVentaService.update(item));
+        }
+      }
+    );
+
+    this.router.navigate(['/car/detail', this.venta.id]);
   }
 }

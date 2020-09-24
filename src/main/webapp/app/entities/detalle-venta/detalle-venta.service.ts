@@ -35,4 +35,8 @@ export class DetalleVentaService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  getByVenta(ventaId: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IDetalleVenta[]>(`${this.resourceUrl}/rx/${ventaId}`, { observe: 'response' });
+  }
 }

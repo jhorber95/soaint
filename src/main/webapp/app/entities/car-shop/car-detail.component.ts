@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IDetalleVenta } from 'app/shared/model/detalle-venta.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'jhi-car-detail',
@@ -10,7 +11,7 @@ export class CarDetailComponent implements OnInit {
   carDetail: IDetalleVenta[];
   total = 0;
 
-  constructor() {
+  constructor(protected activatedRoute: ActivatedRoute) {
     const strCar = localStorage.getItem('car');
     this.carDetail = strCar !== null ? JSON.parse(strCar) : [];
 
@@ -21,5 +22,9 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ detail }) => {
+      this.carDetail = detail;
+    });
+  }
 }
