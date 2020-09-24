@@ -1,17 +1,19 @@
 package com.soft.service;
 
 import com.soft.domain.DetalleVenta;
+import com.soft.domain.Venta;
 import com.soft.repository.DetalleVentaRepository;
 import com.soft.service.dto.DetalleVentaDTO;
 import com.soft.service.mapper.DetalleVentaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import rx.Single;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -80,5 +82,12 @@ public class DetalleVentaService {
     public void delete(Long id) {
         log.debug("Request to delete DetalleVenta : {}", id);
         detalleVentaRepository.deleteById(id);
+    }
+
+    public Single<List<DetalleVenta>> getDetail(Long ventaId) {
+        return Single.create(singleSubscriber -> {
+            List<DetalleVenta> all = detalleVentaRepository.findByVenta(new Venta().id(ventaId));
+            singleSubscriber.onSuccess(all);
+        });
     }
 }

@@ -93,4 +93,9 @@ public class Venta implements Serializable {
             ", fecha='" + getFecha() + "'" +
             "}";
     }
+
+    public Venta id(Long ventaId) {
+        this.id = ventaId;
+        return this;
+    }
 }

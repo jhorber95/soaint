@@ -1,6 +1,8 @@
 package com.soft.web.rest;
 
+import com.soft.domain.DetalleVenta;
 import com.soft.service.DetalleVentaService;
+import com.soft.service.mapper.DetalleVentaMapper;
 import com.soft.web.rest.errors.BadRequestAlertException;
 import com.soft.service.dto.DetalleVentaDTO;
 import com.soft.service.dto.DetalleVentaCriteria;
@@ -11,20 +13,23 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rx.Single;
+import rx.schedulers.Schedulers;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link com.soft.domain.DetalleVenta}.
@@ -44,9 +49,12 @@ public class DetalleVentaResource {
 
     private final DetalleVentaQueryService detalleVentaQueryService;
 
-    public DetalleVentaResource(DetalleVentaService detalleVentaService, DetalleVentaQueryService detalleVentaQueryService) {
+    private final DetalleVentaMapper detalleVentaMapper;
+
+    public DetalleVentaResource(DetalleVentaService detalleVentaService, DetalleVentaQueryService detalleVentaQueryService, DetalleVentaMapper detalleVentaMapper) {
         this.detalleVentaService = detalleVentaService;
         this.detalleVentaQueryService = detalleVentaQueryService;
+        this.detalleVentaMapper = detalleVentaMapper;
     }
 
     /**
@@ -141,4 +149,19 @@ public class DetalleVentaResource {
         detalleVentaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/detalle-ventas/rx/{idVenta}")
+    public Single<ResponseEntity<BaseWebResponse<List<DetalleVentaDTO>>>> get(@PathVariable Long idVenta) {
+
+        return detalleVentaService.getDetail(idVenta).subscribeOn(Schedulers.io())
+            .map(response -> ResponseEntity.ok(BaseWebResponse.successWithData(toList(response))));
+    }
+
+    private List<DetalleVentaDTO> toList(List<DetalleVenta> data) {
+        return data
+            .stream()
+            .map(detalleVentaMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
 }
