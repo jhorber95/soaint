@@ -1,0 +1,31 @@
+
+
+
+entity Cliente {
+	nombre String 
+    apellido String
+    dni String
+    telefono String
+    email String
+}
+
+entity Venta {
+	fecha Instant
+}
+
+entity Producto {
+	nombre Strind
+    precion Double
+}
+
+entity DetalleVenta
+
+relationship ManyToOne {
+ Venta{cliente(nombre) required} to Cliente
+ DetalleVenta{venta required} to Venta
+ DetalleVenta{pruducto(nombre) required} to Producto
+}
+
+paginate * with pagination
+dto * with mapstruct
+filter *
