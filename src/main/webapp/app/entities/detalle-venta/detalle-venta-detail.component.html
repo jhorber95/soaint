@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="detalleVenta">
+            <h2><span jhiTranslate="soaintApp.detalleVenta.detail.title">Detalle Venta</span> {{ detalleVenta.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="soaintApp.detalleVenta.venta">Venta</span></dt>
+                <dd>
+                    <div *ngIf="detalleVenta.ventaId">
+                        <a [routerLink]="['/venta', detalleVenta.ventaId, 'view']">{{ detalleVenta.ventaId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="soaintApp.detalleVenta.pruducto">Pruducto</span></dt>
+                <dd>
+                    <div *ngIf="detalleVenta.pruductoId">
+                        <a [routerLink]="['/producto', detalleVenta.pruductoId, 'view']">{{ detalleVenta.pruductoNombre }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/detalle-venta', detalleVenta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

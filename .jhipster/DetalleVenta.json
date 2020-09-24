@@ -1,0 +1,33 @@
+{
+  "name": "DetalleVenta",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "venta",
+      "otherEntityRelationshipName": "detalleVenta",
+      "relationshipValidateRules": "required",
+      "relationshipName": "venta",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "producto",
+      "otherEntityRelationshipName": "detalleVenta",
+      "relationshipValidateRules": "required",
+      "relationshipName": "pruducto",
+      "otherEntityField": "nombre"
+    }
+  ],
+  "changelogDate": "20200924003646",
+  "entityTableName": "detalle_venta",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="venta">
+            <h2><span jhiTranslate="soaintApp.venta.detail.title">Venta</span> {{ venta.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="soaintApp.venta.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{ venta.fecha }}</span>
+                </dd>
+                <dt><span jhiTranslate="soaintApp.venta.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="venta.clienteId">
+                        <a [routerLink]="['/cliente', venta.clienteId, 'view']">{{ venta.clienteNombre }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/venta', venta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

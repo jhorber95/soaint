@@ -1,0 +1,30 @@
+{
+  "name": "Venta",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "cliente",
+      "otherEntityRelationshipName": "venta",
+      "relationshipValidateRules": "required",
+      "relationshipName": "cliente",
+      "otherEntityField": "nombre"
+    }
+  ],
+  "changelogDate": "20200924003446",
+  "entityTableName": "venta",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

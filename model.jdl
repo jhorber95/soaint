@@ -1,8 +1,6 @@
 
-
-
 entity Cliente {
-	nombre String 
+	nombre String
     apellido String
     dni String
     telefono String
@@ -14,7 +12,7 @@ entity Venta {
 }
 
 entity Producto {
-	nombre Strind
+	nombre String
     precion Double
 }
 
@@ -24,6 +22,10 @@ relationship ManyToOne {
  Venta{cliente(nombre) required} to Cliente
  DetalleVenta{venta required} to Venta
  DetalleVenta{pruducto(nombre) required} to Producto
+}
+
+relationship OneToOne {
+	Cliente{user(firstName)} to User
 }
 
 paginate * with pagination

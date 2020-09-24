@@ -1,0 +1,25 @@
+{
+  "name": "Producto",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "precion",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20200924003546",
+  "entityTableName": "producto",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
