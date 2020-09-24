@@ -151,10 +151,10 @@ public class DetalleVentaResource {
     }
 
     @GetMapping("/detalle-ventas/rx/{idVenta}")
-    public Single<ResponseEntity<BaseWebResponse<List<DetalleVentaDTO>>>> get(@PathVariable Long idVenta) {
+    public Single<ResponseEntity<List<DetalleVentaDTO>>> get(@PathVariable Long idVenta) {
 
         return detalleVentaService.getDetail(idVenta).subscribeOn(Schedulers.io())
-            .map(response -> ResponseEntity.ok(BaseWebResponse.successWithData(toList(response))));
+            .map(response -> ResponseEntity.ok(toList(response)));
     }
 
     private List<DetalleVentaDTO> toList(List<DetalleVenta> data) {
