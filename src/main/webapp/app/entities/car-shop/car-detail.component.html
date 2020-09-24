@@ -1,0 +1,30 @@
+<div class="table-responsive" id="entities" *ngIf="carDetail && carDetail.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+        <tr>
+            <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col"><span jhiTranslate="soaintApp.detalleVenta.pruducto">Pruducto</span></th>
+            <th scope="col"><span jhiTranslate="soaintApp.producto.precion"></span></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let detalleVenta of carDetail ;let i = index">
+            <td>{{detalleVenta.pruductoId}}</td>
+            <td>
+                {{detalleVenta.pruductoNombre}}
+            </td>
+            <td>
+                {{detalleVenta.pruductoPrecio | currency}}
+            </td>
+            <td class="text-right">
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div class="align-content-md-end">
+        <h3 jhiTranslate="home.shop.total" [translateValues]="{ total: total | currency}"></h3>
+    </div>
+</div>

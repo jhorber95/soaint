@@ -32,11 +32,14 @@ import {
   faTrashAlt,
   faAsterisk,
   faTasks,
+  faCar,
+  faShoppingCart,
   // jhipster-needle-add-icon-import
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
+  faShoppingCart,
   faUser,
   faSort,
   faSortUp,
@@ -70,6 +73,7 @@ export const fontAwesomeIcons = [
   faCalendarAlt,
   faSearch,
   faTrashAlt,
+  faCar,
   // jhipster-needle-add-icon-import
   faAsterisk,
 ];

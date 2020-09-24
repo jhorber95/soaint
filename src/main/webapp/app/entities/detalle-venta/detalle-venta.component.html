@@ -14,11 +14,11 @@
 
     <jhi-alert></jhi-alert>
 
-    <div class="alert alert-warning" id="no-result" *ngIf="detalleVentas?.length === 0">
-        <span jhiTranslate="soaintApp.detalleVenta.home.notFound">No detalleVentas found</span>
+    <div class="alert alert-warning" id="no-result" *ngIf="carDetail?.length === 0">
+        <span jhiTranslate="soaintApp.detalleVenta.home.notFound">No carDetail found</span>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="detalleVentas && detalleVentas.length > 0">
+    <div class="table-responsive" id="entities" *ngIf="carDetail && carDetail.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let detalleVenta of detalleVentas ;trackBy: trackId">
+                <tr *ngFor="let detalleVenta of carDetail ;trackBy: trackId">
                     <td><a [routerLink]="['/detalle-venta', detalleVenta.id, 'view']">{{ detalleVenta.id }}</a></td>
                     <td>
                         <div *ngIf="detalleVenta.ventaId">
@@ -69,7 +69,7 @@
         </table>
     </div>
 
-    <div *ngIf="detalleVentas && detalleVentas.length > 0">
+    <div *ngIf="carDetail && carDetail.length > 0">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>

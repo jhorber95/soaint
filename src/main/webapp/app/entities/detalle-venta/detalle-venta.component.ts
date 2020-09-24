@@ -16,7 +16,7 @@ import { DetalleVentaDeleteDialogComponent } from './detalle-venta-delete-dialog
   templateUrl: './detalle-venta.component.html',
 })
 export class DetalleVentaComponent implements OnInit, OnDestroy {
-  detalleVentas?: IDetalleVenta[];
+  carDetail?: IDetalleVenta[];
   eventSubscriber?: Subscription;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -108,7 +108,7 @@ export class DetalleVentaComponent implements OnInit, OnDestroy {
         },
       });
     }
-    this.detalleVentas = data || [];
+    this.carDetail = data || [];
     this.ngbPaginationPage = this.page;
   }
 

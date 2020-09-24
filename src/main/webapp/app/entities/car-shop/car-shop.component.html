@@ -1,0 +1,35 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="home.shop.title">Productos</span>
+
+        <button *ngIf="carDetail.length > 0" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-detalle-venta" [routerLink]="['/car/detail']">
+            <fa-icon icon="shopping-cart"></fa-icon>
+            <span  jhiTranslate="home.shop.seeCar"  [translateValues]="{ totalItems: carDetail.length }"></span>
+        </button>
+    </h2>
+    <br>
+
+    <div class="row">
+        <div class="co-md-3 mr-4" *ngFor="let item of products">
+            <div class="card" style="width: 18rem;">
+                <img class="img-fluid" src="https://picsum.photos/id/{{item.id}}/200/300"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.nombre}} | {{ item.precion | currency }}</h5>
+                    <a class="btn btn-primary" jhiTranslate="home.addToCar" (click)="addToCar(item)"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="products && products.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

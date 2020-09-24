@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "¡Bienvenido, Java Hipster!",
+    "title": "¡Bienvenido ",
     "subtitle": "Esta es su página de inicio",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
@@ -14,6 +14,14 @@
       "follow": "contacto @jhipster en Twitter"
     },
     "like": "Si te gusta JHipster, danos una estrella en",
-    "github": "GitHub"
+    "github": "GitHub",
+    "addToCar": "Agregar al carrito",
+    "goToCar": "Ir a la tieda",
+    "shop": {
+      "detail": "Detalle carro",
+      "seeCar": "Ver carro ({{totalItems}})",
+      "total": "Total {{total}}",
+      "title": "Tienda"
+    }
   }
 }
